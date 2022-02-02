@@ -1,11 +1,11 @@
---- README ---
+# README 
 Following Ben Awad's FullStack Tut:
 https://www.youtube.com/watch?v=I6ypD7qv3Z8
 [10:40] - Nodemon
 ithub Link: https://github.com/benawad/lireddit
 
 
-## VSCode Extensions:
+### VSCode Extensions:
 - Bracket Pair Colorizer 2
 - Docker
 - GraphQL for VSCode
@@ -13,7 +13,7 @@ ithub Link: https://github.com/benawad/lireddit
 - Vim (Optional)
 
 
-# Steps
+### Steps
 1. Initialize project
     $ npm init -y
 
