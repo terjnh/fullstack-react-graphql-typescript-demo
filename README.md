@@ -1,7 +1,7 @@
 # README 
 Following Ben Awad's FullStack Tut:
 https://www.youtube.com/watch?v=I6ypD7qv3Z8
-[10:40] - Nodemon
+[18:50] - DB table for Post.ts
 ithub Link: https://github.com/benawad/lireddit
 
 
@@ -54,9 +54,21 @@ ithub Link: https://github.com/benawad/lireddit
 7. Install nodemon
   - $ yarn add -D nodemon
 
-*** 2 Terminals ***
+#### 2 Terminals 
 Terminal 1: $ yarn watch
   - Recompile typescript to JS code
 Terminal 2: $ yarn dev
   - Execute app through nodemon - hot reload
 
+8. Install postgresql
+  - sudo snap install postgresql96
+  - sudo apt install postgresql-client-common
+  - sudo apt-get install postgresql-client
+
+9. Install mikro-orm
+  - $ yarn add @mikro-orm/cli @mikro-orm/core @mikro-orm/migrations @mikro-orm/postgresql pg
+  - (note: we are using postgresql for this tutorial)
+
+10. Create postgresql database
+  - $ sudo -u postgres createuser terry
+  - $ sudo -u postgres createdb -O terry lireddit
