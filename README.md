@@ -1,7 +1,7 @@
 # README 
 Following Ben Awad's FullStack Tut:
 https://www.youtube.com/watch?v=I6ypD7qv3Z8
-[18:50] - DB table for Post.ts
+[33:37] - Specify types for Post.ts 
 ithub Link: https://github.com/benawad/lireddit
 
 
@@ -65,6 +65,9 @@ Terminal 2: $ yarn dev
   - sudo apt install postgresql-client-common
   - sudo apt-get install postgresql-client
 
+- Enter psql terminal:
+  - $ sudo -u postgres psql
+
 9. Install mikro-orm
   - $ yarn add @mikro-orm/cli @mikro-orm/core @mikro-orm/migrations @mikro-orm/postgresql pg
   - (note: we are using postgresql for this tutorial)
@@ -72,3 +75,8 @@ Terminal 2: $ yarn dev
 10. Create postgresql database
   - $ sudo -u postgres createuser terry
   - $ sudo -u postgres createdb -O terry lireddit
+
+11. Run mikro-orm migrate
+  - $ npx mikro-orm migration:create
+  - Note: Ensure `user` and `password` is set in 'mikro-orm.config.ts'
+  - If successful, Migration<someNumbers>.ts will be created in './src/migrations/'
