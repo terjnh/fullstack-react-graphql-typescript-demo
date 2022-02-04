@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [56:57] - Retrieving posts from PostgreSQL through GraphQL
+  - [1:09:23] - Completed CRUD through GraphQL
 - Github Link: https://github.com/benawad/lireddit
 
 
