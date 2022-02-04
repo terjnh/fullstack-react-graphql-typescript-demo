@@ -1,8 +1,8 @@
 # README 
-Following Ben Awad's FullStack Tut:
-https://www.youtube.com/watch?v=I6ypD7qv3Z8
-[33:37] - Specify types for Post.ts 
-ithub Link: https://github.com/benawad/lireddit
+- Following Ben Awad's FullStack Tut:
+  - https://www.youtube.com/watch?v=I6ypD7qv3Z8
+  - [56:57] - Retrieving posts from PostgreSQL through GraphQL
+- Github Link: https://github.com/benawad/lireddit
 
 
 ### VSCode Extensions:
@@ -80,3 +80,18 @@ Terminal 2: $ yarn dev
   - $ npx mikro-orm migration:create
   - Note: Ensure `user` and `password` is set in 'mikro-orm.config.ts'
   - If successful, Migration<someNumbers>.ts will be created in './src/migrations/'
+
+12. Setting up server (graphql, apollo)
+  - $ yarn add express apollo-server-express graphql type-graphql
+  - $ yarn add -D @types/express
+
+
+13. Reflect-metadata
+  - $ yarn add reflect-metadata
+
+
+==============================================================================
+GRAPHQL QUERIES
+localhost:4000/graphql
+
+
