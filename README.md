@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [1:09:23] - Completed CRUD through GraphQL
+  - [1:23:30] - Login Resolver
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -11,6 +11,14 @@
 - GraphQL for VSCode
 - Prettier - Code formatter
 - Vim (Optional)
+
+### TO START-UP SERVER
+- $ yarn watch
+  - Compile Typescript code to Javascript
+- $ npx mikro-orm migration:create
+  - Run Migrations on schema
+- $ yarn dev
+
 
 
 ### Steps
@@ -80,6 +88,7 @@ Terminal 2: $ yarn dev
   - $ npx mikro-orm migration:create
   - Note: Ensure `user` and `password` is set in 'mikro-orm.config.ts'
   - If successful, Migration<someNumbers>.ts will be created in './src/migrations/'
+    - Migration looks up our PostgreSQL database, and making sure our entities match with it
 
 12. Setting up server (graphql, apollo)
   - $ yarn add express apollo-server-express graphql type-graphql
@@ -88,6 +97,9 @@ Terminal 2: $ yarn dev
 
 13. Reflect-metadata
   - $ yarn add reflect-metadata
+
+14. Install Argon2 for password hashing
+  - $ yarn add argon2
 
 
 ==============================================================================
