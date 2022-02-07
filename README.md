@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [1:57:15] - Forced apollo to load GraphQL playground
+  - [2:01:46] - 'Me' query to fetch current logged-in user
 - Github Link: https://github.com/benawad/lireddit
 
 

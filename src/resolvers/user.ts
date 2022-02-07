@@ -41,6 +41,17 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() { req, em }: MyContext) {
+    // you are not logged in
+    if (!req.session.userId) {
+      return null;
+    }
+
+    const user = await em.findOne(User, { id: req.session.userId });
+    return user;
+  }
+
   @Mutation(() => UserResponse)
   async register(
     @Arg("options", () => UsernamePasswordInput) options: UsernamePasswordInput,
@@ -135,6 +146,7 @@ export class UserResolver {
       };
     }
 
+    // Set session userId (cookie)
     req.session.userId = user.id;
 
     return {
@@ -154,4 +166,4 @@ export class UserResolver {
   //     }
   //   }
   // }
-}
+} //class UserResolver
