@@ -74,16 +74,20 @@ export class UserResolver {
       password: hashedPassword,
     });
     try {
+      // if em.persistAndFlush(user) fails, it will user.id will not be created
+      // our graphql schema enforces that user.id cannot be null
       await em.persistAndFlush(user);
     } catch (err) {
       // duplicate username error
-      if(err.code==='23505') {
+      if (err.code === "23505") {
         return {
-          errors: [{
-            field: 'username',
-            message: "username already taken",
-          }]
-        }
+          errors: [
+            {
+              field: "username",
+              message: "username already taken",
+            },
+          ],
+        };
       }
     }
     return { user };
@@ -106,7 +110,7 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async login(
     @Arg("options", () => UsernamePasswordInput) options: UsernamePasswordInput,
-    @Ctx() { em }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
     const user = await em.findOne(User, { username: options.username });
     if (!user) {
@@ -130,6 +134,9 @@ export class UserResolver {
         ],
       };
     }
+
+    req.session.userId = user.id;
+
     return {
       user,
     };

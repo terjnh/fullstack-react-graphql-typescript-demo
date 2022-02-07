@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [1:41:19] - Login Resolver
+  - [1:57:15] - Forced apollo to load GraphQL playground
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -101,6 +101,15 @@ Terminal 2: $ yarn dev
 14. Install Argon2 for password hashing
   - $ yarn add argon2
 
+15. Session Authentication
+  - Store a cookie in the user's browser, use sessions for authentication to keep track of logged-in user.
+  - In this case, we will use `redis` as it is fast
+    - To install redis: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04
+  - We will use this middleware: https://github.com/tj/connect-redis
+    - $ yarn add redis connect-redis express-session
+  - Install the types:
+    - $ yarn add -D @types/redis @types/express-session @types/connect-redis
+  
 
 ==============================================================================
 GRAPHQL QUERIES
