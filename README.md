@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [1:23:30] - Login Resolver
+  - [1:41:19] - Login Resolver
 - Github Link: https://github.com/benawad/lireddit
 
 
