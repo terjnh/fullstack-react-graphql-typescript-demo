@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [2:01:46] - 'Me' query to fetch current logged-in user
+  - [2:08:54] - Theory on 'Sessions'
 - Github Link: https://github.com/benawad/lireddit
 
 

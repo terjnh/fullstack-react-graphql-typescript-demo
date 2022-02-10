@@ -1,0 +1,24 @@
+Some information on how redis stores / retrieves cookies
+
+// store user id session - this will set a cookie on the user
+//  - keep them logged in
+From user.ts:
+- req.session.userId = user.id;
+    - Storing some data into session
+
+    - {userId: 1} -> send that to redis
+    - Step 1 ... sess:<someKey> -> {userId: 1}
+    - Then, if i give redis <someKey>, it will return me { userId: 1 }
+
+    - Step 2 ... express-session will set a cookie on my browser <some-cookie-value>
+    - <some-cookie-value> is a signed-version of <someKey>
+
+    - Step 3 ... When user makes a request,
+    - <some-cookie-value> is sent -> to the server
+
+    - Step 4 ... Server will unsign <some-cookie-value>
+    - it will use 'secret' from RedisStore (index.ts) to unsign it.
+    - after unsigning <some-cookie-value> ---> sess:<someKey> (decryption)
+
+    - Step 5 ... Make a request to redis
+    - sess:<someKey>
