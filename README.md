@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [2:08:54] - Theory on 'Sessions'
+  - [2:45:14] - URQL Basics
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -110,6 +110,9 @@ Terminal 2: $ yarn dev
   - Install the types:
     - $ yarn add -D @types/redis @types/express-session @types/connect-redis
   
+16. Add cors
+  - $ yarn add cors
+  - $ yarn add -D @types/cors
 
 ==============================================================================
 GRAPHQL QUERIES

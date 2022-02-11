@@ -3,7 +3,7 @@ import { MikroORM } from "@mikro-orm/core";
 import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import microConfig from "./mikro-orm.config";
-import express from "express";
+// import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
@@ -14,12 +14,14 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 // import redis from 'redis';
 const session = require("express-session");
 import connectRedis from "connect-redis";
-import { MyContext } from "./types";
 
+const express = require('express')
+const cors = require('cors')
 
 async function main() {
   // connect to database
   const orm = await MikroORM.init(microConfig);
+
   // run migrations
   await orm.getMigrator().up();
 
@@ -30,6 +32,13 @@ async function main() {
   const { createClient } = require("redis");
   let redisClient = createClient({ legacyMode: true });
   redisClient.connect().catch(console.error);
+
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true
+    })
+  );
 
   // session middleware
   app.use(
@@ -63,15 +72,15 @@ async function main() {
         // options
       }),
     ],
-    context: ({ req, res }): MyContext => ({ em: orm.em, req, res }),
+    context: ({ req, res }) => ({ em: orm.em, req, res }),
   });
 
   // apollo middleware
   await apolloServer.start();
   apolloServer.applyMiddleware({
     app,
-    // cors: false,
-    cors: { credentials: true, origin: "https://studio.apollographql.com" },
+    cors: false
+    // cors: { origin: "http://localhost:3000/" },
   });
 
   app.listen(4000, () => {
