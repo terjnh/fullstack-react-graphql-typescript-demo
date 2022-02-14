@@ -11,7 +11,8 @@ import {
   ObjectType,
 } from "type-graphql";
 import argon2 from "argon2";
-import { DriverException } from "@mikro-orm/core";
+import { EntityManager } from "@mikro-orm/postgresql";
+import { COOKIE_NAME } from "../constants";
 
 @InputType()
 class UsernamePasswordInput {
@@ -43,14 +44,14 @@ class UserResponse {
 export class UserResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req, em }: MyContext) {
-    console.log("req.session:", req.session)
-
+    console.log("req.session:", req.session);
     // you are not logged in
     if (!req.session.userId) {
       return null;
     }
 
     const user = await em.findOne(User, { id: req.session.userId });
+
     return user;
   }
 
@@ -82,14 +83,26 @@ export class UserResolver {
     }
 
     const hashedPassword = await argon2.hash(options.password);
-    const user = em.create(User, {
-      username: options.username,
-      password: hashedPassword,
-    });
+    // const user = em.create(User, {
+    //   username: options.username,
+    //   password: hashedPassword,
+    // });
+    let user;
     try {
-      // if em.persistAndFlush(user) fails, it will user.id will not be created
-      // our graphql schema enforces that user.id cannot be null
-      await em.persistAndFlush(user);
+      // //if em.persistAndFlush(user) fails, it will user.id will not be created
+      // //our graphql schema enforces that user.id cannot be null
+      // await em.persistAndFlush(user);
+      const result = await (em as EntityManager)
+        .createQueryBuilder(User)
+        .getKnexQuery()
+        .insert({
+          username: options.username,
+          password: hashedPassword,
+          created_at: new Date(),
+          updated_at: new Date(),
+        })
+        .returning("*");
+      user = result[0];
     } catch (err) {
       // duplicate username error
       if (err.code === "23505") {
@@ -104,6 +117,7 @@ export class UserResolver {
       }
     }
 
+    console.log("i am user: ", user);
     // store user id session - this will set a cookie on the user
     //  - keep them logged in
     req.session.userId = user.id;
@@ -173,4 +187,21 @@ export class UserResolver {
   //     }
   //   }
   // }
+
+  // req -> clear the session, res -> clear the cookie
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    return new Promise((resolve) =>
+      req.session.destroy((err: any) => {
+        res.clearCookie(COOKIE_NAME);
+        console.log("Clear cookie:", COOKIE_NAME)
+        if (err) {
+          console.log("logout-err:", err);
+          resolve(false);
+          return;
+        }
+        resolve(true);
+      })
+    );
+  }
 } //class UserResolver

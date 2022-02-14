@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [2:45:14] - URQL Basics
+  - [3:50:25] - Completed login/logout functions
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -114,8 +114,6 @@ Terminal 2: $ yarn dev
   - $ yarn add cors
   - $ yarn add -D @types/cors
 
-==============================================================================
-GRAPHQL QUERIES
-localhost:4000/graphql
+
 
 
