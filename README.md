@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [3:50:25] - Completed login/logout functions
+  - [4:08:20] - Completed Server-side rendering
 - Github Link: https://github.com/benawad/lireddit
 
 
