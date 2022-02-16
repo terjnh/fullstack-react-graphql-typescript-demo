@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [5:09:48] - User login/logout + forget password email link(from GraphQL playground)
+  - [5:22:16] - Completed 'forgot password' flow
 - Github Link: https://github.com/benawad/lireddit
 
 

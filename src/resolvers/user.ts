@@ -86,6 +86,9 @@ export class UserResolver {
     user.password = await argon2.hash(newPassword);
     await em.persistAndFlush(user);
 
+    // expire the token after changing password
+    await redis.del(key);
+
     // log in user after change password (optional)
     req.session.userId = user.id;
 
