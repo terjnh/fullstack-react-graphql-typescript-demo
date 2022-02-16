@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [4:08:20] - Completed Server-side rendering
+  - [5:09:48] - User login/logout + forget password email link(from GraphQL playground)
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -114,6 +114,18 @@ Terminal 2: $ yarn dev
   - $ yarn add cors
   - $ yarn add -D @types/cors
 
+17. Install nodemailer (for emails)
+  - $ yarn add nodemailer
+  - $ yarn add -D @types/nodemailer
+
+** Adding new field(column) to database (eg. email)
+- Previous users did not have email, hence running `yarn create:migration` then `yarn:dev` will result in compilation error
+- one solution: remove all previous users from DB:
+  - add `await orm.em.nativeDelete(User, {});` into index.ts before
+        `await orm.getMigrator().up();`
 
 
-
+18. Install uuid and ioredis
+  - uuid for generating unique tokens
+  - $ yarn add uuid ioredis
+  - $ yarn add -D @types/uuid @types/ioredis

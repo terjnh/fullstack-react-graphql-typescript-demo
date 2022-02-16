@@ -1,27 +1,23 @@
-import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
-import { COOKIE_NAME, __prod__ } from "./constants";
-import { Post } from "./entities/Post";
-import microConfig from "./mikro-orm.config";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 // import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import connectRedis from "connect-redis";
+import cors from "cors";
+import express from "express";
+import session from "express-session";
+import Redis from "ioredis";
+import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import { COOKIE_NAME, __prod__ } from "./constants";
+import microConfig from "./mikro-orm.config";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-
-// import redis from 'redis';
-const session = require("express-session");
-import connectRedis from "connect-redis";
-
-const express = require('express')
-const cors = require('cors')
 
 async function main() {
   // connect to database
   const orm = await MikroORM.init(microConfig);
-
   // run migrations
   await orm.getMigrator().up();
 
@@ -30,8 +26,10 @@ async function main() {
   const RedisStore = connectRedis(session);
   // redis@v4
   const { createClient } = require("redis");
-  let redisClient = createClient({ legacyMode: true });
-  redisClient.connect().catch(console.error);
+  // let redis = createClient({ legacyMode: true });
+  const redis = new Redis();
+  redis.connect().catch(console.error);
+
 
   app.use(
     cors({
@@ -45,7 +43,7 @@ async function main() {
     session({
       name: COOKIE_NAME,
       store: new RedisStore({
-        client: redisClient,
+        client: redis,
         disableTouch: true,
       }),
       cookie: {
@@ -72,7 +70,7 @@ async function main() {
         // options
       }),
     ],
-    context: ({ req, res }) => ({ em: orm.em, req, res }),
+    context: ({ req, res }) => ({ em: orm.em, req, res, redis }),
   });
 
   // apollo middleware
