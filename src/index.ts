@@ -1,4 +1,3 @@
-import { MikroORM } from "@mikro-orm/core";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 // import express from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -9,18 +8,31 @@ import session from "express-session";
 import Redis from "ioredis";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
+import { createConnection } from 'typeorm';
 import { COOKIE_NAME, __prod__ } from "./constants";
-import microConfig from "./mikro-orm.config";
+import { Post } from "./entities/Post";
+import { User } from "./entities/User";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
+import path from "path";
 
 async function main() {
-  // connect to database
-  const orm = await MikroORM.init(microConfig);
-  // run migrations
-  await orm.getMigrator().up();
+  const conn = await createConnection({
+    type: 'postgres',
+    database: 'lireddit2',
+    username: 'postgres',
+    password: 'postgres',
+    logging: true,
+    synchronize: true,  // if true, creates tables automatically (no need to run migration)
+    migrations: [path.join(__dirname, "./migrations/*")],
+    entities: [Post, User]
+  });
+  await conn.runMigrations();
 
+  // wipe Post table -> before doing this, set 'synchronize: false'
+  // await Post.delete({});
+  
   const app = express();
 
   const RedisStore = connectRedis(session);
@@ -28,7 +40,7 @@ async function main() {
   const { createClient } = require("redis");
   // let redis = createClient({ legacyMode: true });
   const redis = new Redis();
-  redis.connect().catch(console.error);
+  // redis.connect().catch(console.error);
 
 
   app.use(
@@ -70,7 +82,7 @@ async function main() {
         // options
       }),
     ],
-    context: ({ req, res }) => ({ em: orm.em, req, res, redis }),
+    context: ({ req, res }) => ({ req, res, redis }),
   });
 
   // apollo middleware

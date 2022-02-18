@@ -1,0 +1,2 @@
+How middleware works
+- It runs before your resolver

@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [5:22:16] - Completed 'forgot password' flow
+  - [8:18:55] - JOIN user and posts tables
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -86,10 +86,11 @@ Terminal 2: $ yarn dev
 
 11. Run mikro-orm migrate
   - $ npx mikro-orm migration:create
+    - package.json: created `yarn create:migration` to handle the above command
   - Note: Ensure `user` and `password` is set in 'mikro-orm.config.ts'
   - If successful, Migration<someNumbers>.ts will be created in './src/migrations/'
     - Migration looks up our PostgreSQL database, and making sure our entities match with it
-
+s
 12. Setting up server (graphql, apollo)
   - $ yarn add express apollo-server-express graphql type-graphql
   - $ yarn add -D @types/express
@@ -129,3 +130,27 @@ Terminal 2: $ yarn dev
   - uuid for generating unique tokens
   - $ yarn add uuid ioredis
   - $ yarn add -D @types/uuid @types/ioredis
+
+
+19. Switch to TypeORM from mikroORM
+  - $ yarn add typeorm
+  - Documentation for typeORM: https://typeorm.io
+  - in lireddit-server directory:
+    - $ createdb lireddit2
+    - lireddit2 database will be created in psql (check pgAdmin4 - http://127.0.0.1/pgadmin4/)
+
+  - Remove mikroORM
+  - $ yarn remove @mikro-orm/cli @mikro-orm/core @mikro-orm/migrations @mikro-orm/postgresql
+
+
+20. Pagination
+  - We should use cursor-based pagination
+
+21. Creating fakeposts migration
+  - $ npx typeorm migration:create -n FakePosts
+
+
+### PgAdmin4:
+- Need to install pgAdmin web browser first
+http://127.0.0.1/pgadmin4/
+User - email.lightarray@gmail.com (!QAZ2wsx3edc)
