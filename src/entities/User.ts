@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Post } from "./Post";
+import { Updoot } from "./Updoot";
 
 // Database Table for Post
 @ObjectType()
@@ -30,8 +31,11 @@ export class User extends BaseEntity {
   password!: string;
 
   // 'creator' and 'posts' matches Post.ts(entities) @ManyToOne
-  @OneToMany(() => Post, post => post.creator)
+  @OneToMany(() => Post, (post) => post.creator)
   posts: Post[];
+
+  @OneToMany(() => Updoot, (updoot) => updoot.user)
+  updoots: Updoot[];
 
 
   @Field(() => String)

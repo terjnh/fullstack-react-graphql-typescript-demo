@@ -1,7 +1,7 @@
 # README 
 - Following Ben Awad's FullStack Tut:
   - https://www.youtube.com/watch?v=I6ypD7qv3Z8
-  - [8:18:55] - JOIN user and posts tables
+  - [10:03:45] SSR Cookie forwarding
 - Github Link: https://github.com/benawad/lireddit
 
 
@@ -154,3 +154,6 @@ s
 - Need to install pgAdmin web browser first
 http://127.0.0.1/pgadmin4/
 User - email.lightarray@gmail.com (!QAZ2wsx3edc)
+
+### src/entities:
+- Refer to https://typegraphql.com/

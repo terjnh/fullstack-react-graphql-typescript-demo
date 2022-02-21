@@ -1,0 +1,5 @@
+first time going to a page, we will server-side-render (SSR):
+- browser -> next.js -> graphql api
+
+but for client-side request:
+- browser -> graphql api
